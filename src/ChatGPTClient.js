@@ -13,7 +13,7 @@ class ChatGPTClient {
    * @param {{contextRemembering:boolean, responseType: 'embed' | 'string', maxLength:number}} options `.contextRemembering` Whether to keep track of ongoing conversations for each user.
    */
   constructor(openAIAPIKey, options) {
-    if (!openAIAPIKey) throw new TypeError("An OpenAI API key must be provided. Create an OpenAI account and get an API key at https://platform.openai.com/account/api-keys");
+    if (!openAIAPIKey) throw new TypeError("You need to get a OpenAI API key!");
 
     const optionDefaults = {
       contextRemembering: true,
@@ -27,7 +27,12 @@ class ChatGPTClient {
 
       
       this.apiClient = new ChatGPTAPI({
-        apiKey: openAIAPIKey
+        apiKey: openAIAPIKey,
+        completionParams: {
+          model: 'gpt-3.5-turbo-1106',
+          temperature: 0.5,
+          top_p: 0.8
+        }
       });
       
     }.bind(this));
